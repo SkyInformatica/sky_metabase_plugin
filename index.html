@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard Metabase</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+      }
+      iframe {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: none;
+      }
+    </style>
+  </head>
+  <body>
+    <iframe id="metabase-iframe" allowtransparency></iframe>
+    <script>
+      async function loadIframeUrl() {
+        try {
+          const response = await fetch("/iframe-url");
+          const data = await response.json();
+          document.getElementById("metabase-iframe").src = data.iframeUrl;
+        } catch (error) {
+          console.error("Erro ao carregar a URL do iframe:", error);
+        }
+      }
+
+      window.addEventListener("load", loadIframeUrl);
+    </script>
+  </body>
+</html>
